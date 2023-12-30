@@ -22,18 +22,38 @@ class DiceGame {
         parse_game_id();
     }
 
+    bool isValidGame() {
+        // text example: Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+        string colorsInfo = text.substr(text.find(":") + 1);
+        // colorsInfo includes a space at the beginning
+        size_t pos = 0;
+        string roundDelim = ";";
+        while ((pos = colorsInfo.find(roundDelim)) != string::npos) {
+            string round = colorsInfo.substr(0, pos);
+            if (!isValidRound(round)) {
+                return false;
+            }
+            colorsInfo.erase(0, pos + roundDelim.length());
+        }
+        if (!isValidRound(colorsInfo)) {
+            return false;
+        }
+        return true;
+    }
+
   private:
     bool isValidColor(string colorInfo) {
+        colorInfo = colorInfo.substr(1);
         int colorCount = std::stoi(colorInfo.substr(0, colorInfo.find(' ')));
         string color = colorInfo.substr(colorInfo.find(' ') + 1);
         uint maxColor = maxColors.at(color);
-        return colorCount < maxColor;
+        return colorCount <= maxColor;
     }
 
     bool isValidRound(string round) {
         size_t pos = 0;
         string colorInfo;
-        string colorDelim = ", ";
+        string colorDelim = ",";
         while ((pos = round.find(colorDelim)) != string::npos) {
             string token = round.substr(0, pos);
             if (!isValidColor(token)) {
@@ -62,14 +82,21 @@ class DiceGame {
 int part_1(string filename) {
     string line;
     std::ifstream file(filename);
+    int sum = 0;
 
     while (std::getline(file, line)) {
         DiceGame lineGame(line);
+        cout << "Game " << lineGame.gameID << ": " << lineGame.isValidGame()
+             << "\n";
+        if (lineGame.isValidGame()) {
+            sum += lineGame.gameID;
+        }
     }
-    return 1;
+    return sum;
 }
 
 int main() {
-    part_1("./example_input");
+    int result = part_1("./part1");
+    cout << result << "\n";
     return 1;
 }
