@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
+#include <vector>
 using std::cout;
 using std::string;
 using std::unordered_map;
@@ -95,8 +96,19 @@ int part_1(string filename) {
     return sum;
 }
 
+int part_2(string filename) {
+    string line;
+    std::ifstream file(filename);
+    int sum = 0;
+
+    while (std::getline(file, line)) {
+        DiceGame lineGame(line);
+    }
+    return sum;
+}
+
 int main() {
-    int result = part_1("./part1");
-    cout << result << "\n";
-    return 1;
+    // int result = part_1("./part1");
+    // cout << result << "\n";
+    // return 1;
 }
