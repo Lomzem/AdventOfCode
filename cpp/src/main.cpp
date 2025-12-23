@@ -1,40 +1,36 @@
-#include "day01.hpp"
+#include "day02.hpp"
 #include <fstream>
 #include <iostream>
-#include <vector>
+#include <string>
 
-std::vector<std::string> read_input(const std::string &filename) {
-  std::vector<std::string> lines;
-  std::ifstream file(filename);
+int main(int argc, char *argv[]) {
+  int day = 0;
 
-  if (!file.is_open()) {
-    std::cerr << "Error: Could not open file " << filename << std::endl;
-    return lines;
+  if (argc > 1) {
+    day = std::stoi(argv[1]);
   }
 
-  std::string line;
-  while (std::getline(file, line)) {
-    if (!line.empty()) {
-      lines.push_back(line);
+  std::string filename = "./inputs/day" + std::string(day < 10 ? "0" : "") +
+                         std::to_string(day) + ".txt";
+
+  switch (day) {
+  case 1:
+    break;
+  case 2:
+    std::cout << "Day 2\n";
+    std::cout << "Part 1: ";
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+      std::cerr << "Error: Could not open file " << filename << '\n';
+      exit(1);
     }
+    size_t total = 0;
+    for (std::string range; std::getline(file, range, ',');) {
+      total += day02::part1(range);
+    }
+    std::cout << total << '\n';
+    break;
   }
-
-  return lines;
-}
-
-int main() {
-  auto input = read_input("./inputs/day01pt1.txt");
-
-  if (input.empty()) {
-    std::cerr << "No input data found" << std::endl;
-    return 1;
-  }
-
-  int result1 = day01::part1(input);
-  int result2 = day01::part2(input);
-
-  std::cout << "Part 1: " << result1 << std::endl;
-  std::cout << "Part 2: " << result2 << std::endl;
 
   return 0;
 }

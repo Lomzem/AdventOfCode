@@ -19,7 +19,8 @@ FetchContent_MakeAvailable(Catch2)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
 # Add main executable
-add_executable(aoc src/main.cpp src/day01.cpp)
+file(GLOB DAY_SOURCES "src/day*.cpp")
+add_executable(aoc src/main.cpp ${DAY_SOURCES})
 target_link_libraries(aoc PRIVATE)
 
 # Add test executable
