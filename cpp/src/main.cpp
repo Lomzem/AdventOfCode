@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <vector>
 
 int main(int argc, char *argv[]) {
   int day = 0;
@@ -18,17 +19,31 @@ int main(int argc, char *argv[]) {
     break;
   case 2:
     std::cout << "Day 2\n";
-    std::cout << "Part 1: ";
+
     std::ifstream file(filename);
     if (!file.is_open()) {
       std::cerr << "Error: Could not open file " << filename << '\n';
       exit(1);
     }
-    size_t total = 0;
+    std::vector<std::string> inputs;
     for (std::string range; std::getline(file, range, ',');) {
-      total += day02::part1(range);
+      inputs.push_back(range);
+    }
+
+    size_t total = 0;
+    std::cout << "Part 1: ";
+    for (const std::string &input : inputs) {
+      total += day02::part1(input);
     }
     std::cout << total << '\n';
+
+    total = 0;
+    std::cout << "Part 2: ";
+    for (const std::string &input : inputs) {
+      total += day02::part2(input);
+    }
+    std::cout << total << '\n';
+
     break;
   }
 

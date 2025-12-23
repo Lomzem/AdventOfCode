@@ -1,8 +1,7 @@
 #pragma once
 #include <string>
-#include <vector>
 
 namespace day02 {
 size_t part1(const std::string &id_range);
-int part2(const std::vector<std::string> &input);
+size_t part2(const std::string &id_range);
 } // namespace day02
