@@ -31,18 +31,16 @@ int part1(const std::string &bank) {
 
 size_t part2(const std::string &bank) {
   char best[12] = {0};
-  int best_idx;
   int offset = 0;
   for (int i = 0; i < 12; i++) {
     for (int j = offset; j <= bank.size() - (12 - i); j++) {
       if (bank[j] > best[i]) {
         best[i] = bank[j];
-        best_idx = j;
+        offset = j + 1;
       }
       if (bank[j] == '9')
         break;
     }
-    offset = best_idx + 1;
   }
   return std::stoul(best);
 }
