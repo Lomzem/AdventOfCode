@@ -41,8 +41,45 @@ int part1(const std::vector<std::string> &input) {
 }
 
 int part2(const std::vector<std::string> &input) {
-  // TODO: Implement solution
-  return 0;
+  int cur = DIAL_START;
+  int crosses = 0;
+
+  for (const auto &line : input) {
+    // First char should be direction
+    char dir = line[0];
+    int count;
+    std::from_chars(line.data() + 1, line.data() + line.size(), count);
+
+    if (dir == 'L') {
+      count = -1 * count;
+    }
+
+    cur += count;
+
+    if (cur == 0) {
+      crosses++;
+      continue;
+    }
+
+    // Underflow, may cause overflow
+    if (cur < 0) {
+      if (cur - count == 0) {
+        crosses--;
+      }
+      crosses += (-1 * cur / (DIAL_MAX + 1)) + 1;
+      cur = (DIAL_MAX + 1) - ((-1 * cur) % (DIAL_MAX + 1));
+      cur %= DIAL_MAX + 1;
+      continue;
+    }
+
+    // Overflow
+    if (cur > DIAL_MAX) {
+      crosses += cur / (DIAL_MAX + 1);
+      cur %= (DIAL_MAX + 1);
+    }
+  }
+
+  return crosses;
 }
 
 } // namespace day01
