@@ -140,7 +140,11 @@ int main(int argc, char *argv[]) {
     }
 
     std::cout << "Part 1: ";
-    int res = day07::part1(input);
+    size_t res = day07::part1(input);
+    std::cout << res << '\n';
+
+    std::cout << "Part 2: ";
+    res = day07::part2(input);
     std::cout << res << '\n';
   }
   }
