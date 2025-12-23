@@ -36,5 +36,5 @@ int part1(const std::vector<std::string> &grid) {
   }
   return num_accessible;
 }
-int part2(const std::string &grid);
+int part2(const std::vector<std::string> &grid) { return 0; }
 } // namespace day04

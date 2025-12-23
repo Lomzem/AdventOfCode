@@ -76,6 +76,9 @@ int main(int argc, char *argv[]) {
     std::cout << "Part 1: ";
     int total = day04::part1(input);
     std::cout << total << '\n';
+    std::cout << "Part 2: ";
+    total = day04::part2(input);
+    std::cout << total << '\n';
     break;
   }
   }
