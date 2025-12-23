@@ -47,5 +47,5 @@ int part1(const std::vector<std::string> &list) {
 
   return total_fresh;
 };
-int part2(const std::vector<std::string> &list);
+int part2(const std::vector<std::string> &list) { return 0; };
 } // namespace day05
