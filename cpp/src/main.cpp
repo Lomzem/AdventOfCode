@@ -1,4 +1,5 @@
 #include "day02.hpp"
+#include "day03.hpp"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -17,14 +18,9 @@ int main(int argc, char *argv[]) {
   switch (day) {
   case 1:
     break;
-  case 2:
+  case 2: {
     std::cout << "Day 2\n";
-
     std::ifstream file(filename);
-    if (!file.is_open()) {
-      std::cerr << "Error: Could not open file " << filename << '\n';
-      exit(1);
-    }
     std::vector<std::string> inputs;
     for (std::string range; std::getline(file, range, ',');) {
       inputs.push_back(range);
@@ -43,8 +39,31 @@ int main(int argc, char *argv[]) {
       total += day02::part2(input);
     }
     std::cout << total << '\n';
-
     break;
+  }
+  case 3: {
+    std::cout << "Day 2\n";
+    std::ifstream file(filename);
+    std::vector<std::string> inputs;
+    for (std::string range; std::getline(file, range);) {
+      inputs.push_back(range);
+    }
+
+    size_t total = 0;
+    std::cout << "Part 1: ";
+    for (const std::string &input : inputs) {
+      total += day03::part1(input);
+    }
+    std::cout << total << '\n';
+
+    total = 0;
+    std::cout << "Part 2: ";
+    for (const std::string &input : inputs) {
+      total += day03::part2(input);
+    }
+    std::cout << total << '\n';
+    break;
+  }
   }
 
   return 0;
