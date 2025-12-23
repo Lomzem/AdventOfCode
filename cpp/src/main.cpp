@@ -2,8 +2,10 @@
 #include "day03.hpp"
 #include "day04.hpp"
 #include "day05.hpp"
+#include "day06.hpp"
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -99,6 +101,24 @@ int main(int argc, char *argv[]) {
     total = day05::part2(input);
     std::cout << total << '\n';
     break;
+  }
+
+  case 6: {
+    std::cout << "Day 6\n";
+    std::ifstream file(filename);
+    std::vector<std::vector<std::string>> input;
+    for (std::string line; std::getline(file, line);) {
+      std::istringstream iss(line);
+      std::vector<std::string> tokens;
+      std::string token;
+      while (iss >> token) {
+        tokens.push_back(token);
+      }
+      input.push_back(tokens);
+    }
+    std::cout << "Part 1: ";
+    size_t total = day06::part1(input);
+    std::cout << total << '\n';
   }
   }
 
