@@ -91,12 +91,14 @@ int main(int argc, char *argv[]) {
       input.push_back(range);
     }
     std::cout << "Part 1: ";
-    int total = day05::part1(input);
+    size_t total = day05::part1(input);
     std::cout << total << '\n';
-    // std::cout << "Part 2: ";
-    // total = day05::part2(input);
-    // std::cout << total << '\n';
-    // break;
+
+    total = 0;
+    std::cout << "Part 2: ";
+    total = day05::part2(input);
+    std::cout << total << '\n';
+    break;
   }
   }
 
