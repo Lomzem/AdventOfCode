@@ -33,5 +33,5 @@ size_t part1(const std::vector<std::vector<std::string>> &hw) {
   return res;
 };
 
-size_t part2(const std::vector<std::string> &hw);
+size_t part2(const std::vector<std::vector<std::string>> &input) { return 0; }
 } // namespace day06
