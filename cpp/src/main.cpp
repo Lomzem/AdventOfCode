@@ -106,18 +106,26 @@ int main(int argc, char *argv[]) {
   case 6: {
     std::cout << "Day 6\n";
     std::ifstream file(filename);
-    std::vector<std::vector<std::string>> input;
+    std::vector<std::vector<std::string>> inputpt1;
+    std::vector<std::string> inputpt2;
+
     for (std::string line; std::getline(file, line);) {
+      inputpt2.push_back(line);
       std::istringstream iss(line);
       std::vector<std::string> tokens;
       std::string token;
       while (iss >> token) {
         tokens.push_back(token);
       }
-      input.push_back(tokens);
+      inputpt1.push_back(tokens);
     }
+
     std::cout << "Part 1: ";
-    size_t total = day06::part1(input);
+    size_t total = day06::part1(inputpt1);
+    std::cout << total << '\n';
+
+    std::cout << "Part 2: ";
+    total = day06::part2(inputpt2);
     std::cout << total << '\n';
   }
   }
