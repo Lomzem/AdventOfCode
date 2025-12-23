@@ -1,5 +1,6 @@
 #include "day02.hpp"
 #include "day03.hpp"
+#include "day04.hpp"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -42,7 +43,7 @@ int main(int argc, char *argv[]) {
     break;
   }
   case 3: {
-    std::cout << "Day 2\n";
+    std::cout << "Day 3\n";
     std::ifstream file(filename);
     std::vector<std::string> inputs;
     for (std::string range; std::getline(file, range);) {
@@ -61,6 +62,19 @@ int main(int argc, char *argv[]) {
     for (const std::string &input : inputs) {
       total += day03::part2(input);
     }
+    std::cout << total << '\n';
+    break;
+  }
+
+  case 4: {
+    std::cout << "Day 4\n";
+    std::ifstream file(filename);
+    std::vector<std::string> input;
+    for (std::string range; std::getline(file, range);) {
+      input.push_back(range);
+    }
+    std::cout << "Part 1: ";
+    int total = day04::part1(input);
     std::cout << total << '\n';
     break;
   }

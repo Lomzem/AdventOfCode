@@ -1,7 +1,5 @@
 #include "day03.hpp"
-#include <climits>
 #include <string>
-#include <utility>
 
 namespace day03 {
 int part1(const std::string &bank) {
