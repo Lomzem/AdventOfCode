@@ -127,38 +127,55 @@ int part1(const std::vector<std::string> &lines, const int pairs) {
 }
 
 size_t part2(const std::vector<std::string> &lines) {
-  DSU dsu(lines.size());
+  int N = lines.size();
+  DSU dsu(N);
 
   std::vector<Coord> coords;
-  coords.reserve(lines.size());
+  coords.reserve(N);
   for (const auto &line : lines) {
     coords.push_back(Coord::from(line));
   }
 
-  std::vector<Edge> edges;
+  // Distance, index of neighbor
+  typedef std::pair<size_t, int> NeighDist;
+  std::vector<std::vector<NeighDist>> adj(coords.size());
+
   for (int i = 0; i < coords.size(); i++) {
     for (int j = i + 1; j < coords.size(); j++) {
       size_t dist = coords[i].dist2(coords[j]);
-      edges.push_back({dist, i, j});
+      adj[i].push_back({dist, j});
+      adj[j].push_back({dist, i});
     }
   }
 
-  std::sort(edges.begin(), edges.end());
-  for (int i = 0; i < lines.size() - 2; i++) {
-    Edge cur_edge = edges[i];
-    dsu.unionSets(cur_edge.c1_idx, cur_edge.c2_idx);
-  }
-
   std::vector<bool> visited(coords.size(), false);
+  int visited_count = 0;
 
-  for (int i = 0; i < coords.size() - 2; i++) {
-    int coord_par = dsu.find(i);
-    if (visited[coord_par])
+  std::priority_queue<NeighDist, std::vector<NeighDist>,
+                      std::greater<NeighDist>>
+      minheap;
+  minheap.push({0, 0});
+
+  while (visited_count < N - 2) {
+    auto [dist, idx] = minheap.top();
+    minheap.pop();
+    if (visited[idx])
       continue;
-    visited[coord_par] = true;
+    visited[idx] = true;
+    visited_count++;
+    for (const auto &[nei_dist, nei_idx] : adj[idx]) {
+      if (!visited[nei_idx]) {
+        minheap.push({nei_dist, nei_idx});
+      }
+    }
   }
 
-  int res = 1;
+  size_t res = 1;
+  for (int i = 0; i < visited.size(); i++) {
+    if (!visited[i]) [[unlikely]] {
+      res *= coords[i].x;
+    }
+  }
 
   return res;
 }
