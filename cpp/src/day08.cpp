@@ -148,6 +148,13 @@ size_t part2(const std::vector<std::string> &lines) {
     }
   }
 
+  std::vector<Edge> edges;
+  for (int i = 0; i < coords.size(); i++) {
+    for (int j = i + 1; j < coords.size(); j++) {
+      size_t dist = coords[i].dist2(coords[j]);
+      edges.push_back({dist, i, j});
+    }
+  }
   std::sort(edges.begin(), edges.end());
 
   int edge_count = 0;
