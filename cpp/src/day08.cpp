@@ -144,22 +144,16 @@ size_t part2(const std::vector<std::string> &lines) {
   }
 
   std::sort(edges.begin(), edges.end());
-  for (int i = 0; i < lines.size() - 2; i++) {
-    Edge cur_edge = edges[i];
-    dsu.unionSets(cur_edge.c1_idx, cur_edge.c2_idx);
+
+  int edge_count = 0;
+  for (const auto &edge : edges) {
+    if (dsu.unionSets(edge.c1_idx, edge.c2_idx)) {
+      if (++edge_count > coords.size() - 2) {
+        return coords[edge.c1_idx].x * coords[edge.c2_idx].x;
+      }
+    }
   }
 
-  std::vector<bool> visited(coords.size(), false);
-
-  for (int i = 0; i < coords.size() - 2; i++) {
-    int coord_par = dsu.find(i);
-    if (visited[coord_par])
-      continue;
-    visited[coord_par] = true;
-  }
-
-  int res = 1;
-
-  return res;
+  return 0;
 }
 } // namespace day08
