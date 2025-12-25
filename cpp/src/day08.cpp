@@ -3,6 +3,8 @@
 #include <charconv>
 #include <cstddef>
 #include <cstdint>
+#include <functional>
+#include <queue>
 #include <string>
 #include <vector>
 
@@ -45,7 +47,7 @@ public:
   }
 };
 
-class Coord {
+struct Coord {
   size_t x;
   size_t y;
   size_t z;
@@ -123,5 +125,41 @@ int part1(const std::vector<std::string> &lines, const int pairs) {
 
   return res;
 }
-int part2(const std::vector<std::string> &lines);
+
+size_t part2(const std::vector<std::string> &lines) {
+  DSU dsu(lines.size());
+
+  std::vector<Coord> coords;
+  coords.reserve(lines.size());
+  for (const auto &line : lines) {
+    coords.push_back(Coord::from(line));
+  }
+
+  std::vector<Edge> edges;
+  for (int i = 0; i < coords.size(); i++) {
+    for (int j = i + 1; j < coords.size(); j++) {
+      size_t dist = coords[i].dist2(coords[j]);
+      edges.push_back({dist, i, j});
+    }
+  }
+
+  std::sort(edges.begin(), edges.end());
+  for (int i = 0; i < lines.size() - 2; i++) {
+    Edge cur_edge = edges[i];
+    dsu.unionSets(cur_edge.c1_idx, cur_edge.c2_idx);
+  }
+
+  std::vector<bool> visited(coords.size(), false);
+
+  for (int i = 0; i < coords.size() - 2; i++) {
+    int coord_par = dsu.find(i);
+    if (visited[coord_par])
+      continue;
+    visited[coord_par] = true;
+  }
+
+  int res = 1;
+
+  return res;
+}
 } // namespace day08
