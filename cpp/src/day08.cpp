@@ -148,35 +148,17 @@ size_t part2(const std::vector<std::string> &lines) {
     }
   }
 
-  std::vector<bool> visited(coords.size(), false);
-  int visited_count = 0;
+  std::sort(edges.begin(), edges.end());
 
-  std::priority_queue<NeighDist, std::vector<NeighDist>,
-                      std::greater<NeighDist>>
-      minheap;
-  minheap.push({0, 0});
-
-  while (visited_count < N - 2) {
-    auto [dist, idx] = minheap.top();
-    minheap.pop();
-    if (visited[idx])
-      continue;
-    visited[idx] = true;
-    visited_count++;
-    for (const auto &[nei_dist, nei_idx] : adj[idx]) {
-      if (!visited[nei_idx]) {
-        minheap.push({nei_dist, nei_idx});
+  int edge_count = 0;
+  for (const auto &edge : edges) {
+    if (dsu.unionSets(edge.c1_idx, edge.c2_idx)) {
+      if (++edge_count > coords.size() - 2) {
+        return coords[edge.c1_idx].x * coords[edge.c2_idx].x;
       }
     }
   }
 
-  size_t res = 1;
-  for (int i = 0; i < visited.size(); i++) {
-    if (!visited[i]) [[unlikely]] {
-      res *= coords[i].x;
-    }
-  }
-
-  return res;
+  return 0;
 }
 } // namespace day08

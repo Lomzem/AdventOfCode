@@ -159,9 +159,8 @@ int main(int argc, char *argv[]) {
     }
 
     std::cout << "Part 1: ";
-    size_t res;
-    // size_t res = day08::part1(input, 1000);
-    // std::cout << res << '\n';
+    size_t res = day08::part1(input, 1000);
+    std::cout << res << '\n';
 
     std::cout << "Part 2: ";
     res = day08::part2(input);
