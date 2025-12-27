@@ -5,6 +5,7 @@
 #include "day06.hpp"
 #include "day07.hpp"
 #include "day08.hpp"
+#include "day09.hpp"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -129,6 +130,7 @@ int main(int argc, char *argv[]) {
     std::cout << "Part 2: ";
     total = day06::part2(inputpt2);
     std::cout << total << '\n';
+    break;
   }
 
   case 7: {
@@ -147,6 +149,7 @@ int main(int argc, char *argv[]) {
     std::cout << "Part 2: ";
     res = day07::part2(input);
     std::cout << res << '\n';
+    break;
   }
 
   case 8: {
@@ -165,6 +168,22 @@ int main(int argc, char *argv[]) {
     std::cout << "Part 2: ";
     res = day08::part2(input);
     std::cout << res << '\n';
+    break;
+  }
+
+  case 9: {
+    std::cout << "Day 9\n";
+    std::ifstream file(filename);
+    std::vector<std::string> input;
+
+    for (std::string line; std::getline(file, line);) {
+      input.push_back(line);
+    }
+
+    std::cout << "Part 1: ";
+    size_t res = day09::part1(input);
+    std::cout << res << '\n';
+    break;
   }
   }
 
